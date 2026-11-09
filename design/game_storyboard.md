@@ -24,7 +24,7 @@ Project One requires a minimum of eight rooms.
 5. Supply Clearing
 6. Poisonous Marsh
 7. Sunken Shrine
-8. Guardian's Lair (Villain room)
+8. Villain's Lair (Villain room)
 
 Add more rooms if your design needs them.
 
