@@ -10,24 +10,56 @@
 START get_item
 
     # TODO 1: Identify the information the get-item process needs.
+    SET itemInRoom = ""
+SET requestedItem = ""
+SET itemValid = FALSE
     # Consider the current room, item in that room, and player's inventory.
 
     # TODO 2: Prompt for and receive the player's get-item command.
-
+OUTPUT "What item would you like to collect?"
+INPUT requestedItem
+SET requestedItem = lowercase(requestedItem)
     # TODO 3: Validate whether the requested item is available in the current
     # room. Show the decision clearly.
+SET itemValid = FALSE
+SET itemInRoom = ""
 
+IF currentRoom == "Riverbank" THEN
+    SET itemInRoom = "compass"
+ELSE IF currentRoom == "Waterfall Cave" THEN
+    SET itemInRoom = "machete"
+ELSE IF currentRoom == "Ancient Library" THEN
+    SET itemInRoom = "ancient map"
+ELSE IF currentRoom == "Supply Clearing" THEN
+    SET itemInRoom = "first aid kit"
+ELSE IF currentRoom == "Poisonous Marsh" THEN
+    SET itemInRoom = "antidote"
+ELSE IF currentRoom == "Sunken Shrine" THEN
+    SET itemInRoom = "golden key"
+END IF
+
+IF requestedItem == itemInRoom AND itemInRoom != "" AND requestedItem NOT IN inventory THEN
+    SET itemValid = TRUE
+END IF
     # TODO 4: Describe what happens when the item request is valid.
     # Include the inventory update and player output.
-
+IF itemValid == TRUE THEN
+    ADD requestedItem TO inventory
+    OUTPUT "You collected the " + requestedItem + "!"
+    OUTPUT "The item has been added to your inventory."
+END IF
     # TODO 5: Describe what happens when the item request is invalid.
     # Include the output the player should receive.
-
+IF itemValid == FALSE THEN
+    OUTPUT "That item is not available in this room."
+    OUTPUT "Look around and try collecting an item from this room."
+END IF
     # TODO 6: Show how the process returns to or continues the larger gameplay
     # loop after the command is handled.
-
+OUTPUT "Returning to the game."
+RETURN to main game loop
 END get_item
 
 
-# References
+
 

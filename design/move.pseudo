@@ -9,17 +9,81 @@
 
 # TODO 1: Identify the information the movement process needs.
 # Consider the player's current room and movement command.
-
+SET currentRoom = "Starting Camp"
+SET direction = ""
+SET nextRoom = ""
+SET movementValid = FALSE
 # TODO 2: Prompt for and receive the player's movement command.
-
+OUTPUT "Which direction would you like to move?"
+OUTPUT "Choose north, south, east, or west."
+INPUT direction
+SET direction = lowercase(direction)
 # TODO 3: Validate whether the requested movement is possible from the
 # current room. Show the decision clearly.
+SET movementValid = FALSE
+SET nextRoom = ""
 
+
+
+IF currentRoom == "Starting Camp" AND direction == "west" THEN
+    SET nextRoom = "Riverbank"
+    SET movementValid = TRUE
+ELSE IF currentRoom == "Riverbank" AND direction == "east" THEN
+    SET nextRoom = "Starting Camp"
+    SET movementValid = TRUE
+ELSE IF currentRoom == "Riverbank" AND direction == "north" THEN
+    SET nextRoom = "Waterfall Cave"
+    SET movementValid = TRUE
+ELSE IF currentRoom == "Waterfall Cave" AND direction == "south" THEN
+    SET nextRoom = "Riverbank"
+    SET movementValid = TRUE
+ELSE IF currentRoom == "Waterfall Cave" AND direction == "north" THEN
+    SET nextRoom = "Ancient Library"
+    SET movementValid = TRUE
+ELSE IF currentRoom == "Ancient Library" AND direction == "south" THEN
+    SET nextRoom = "Waterfall Cave"
+    SET movementValid = TRUE
+ELSE IF currentRoom == "Ancient Library" AND direction == "east" THEN
+    SET nextRoom = "Supply Clearing"
+    SET movementValid = TRUE
+ELSE IF currentRoom == "Supply Clearing" AND direction == "west" THEN
+    SET nextRoom = "Ancient Library"
+    SET movementValid = TRUE
+ELSE IF currentRoom == "Supply Clearing" AND direction == "east" THEN
+    SET nextRoom = "Poisonous Marsh"
+    SET movementValid = TRUE
+ELSE IF currentRoom == "Poisonous Marsh" AND direction == "west" THEN
+    SET nextRoom = "Supply Clearing"
+    SET movementValid = TRUE
+ELSE IF currentRoom == "Poisonous Marsh" AND direction == "south" THEN
+    SET nextRoom = "Sunken Shrine"
+    SET movementValid = TRUE
+ELSE IF currentRoom == "Sunken Shrine" AND direction == "north" THEN
+    SET nextRoom = "Poisonous Marsh"
+    SET movementValid = TRUE
+ELSE IF currentRoom == "Sunken Shrine" AND direction == "west" THEN
+    SET nextRoom = "Villain's Lair"
+    SET movementValid = TRUE
+ELSE IF currentRoom == "Villain's Lair" AND direction == "east" THEN
+    SET nextRoom = "Sunken Shrine"
+    SET movementValid = TRUE
+END IF
 # TODO 4: Describe what happens when the movement command is valid.
 # Include the room update and player output.
-
+IF movementValid == TRUE THEN
+    SET currentRoom = nextRoom
+    OUTPUT "You have moved to " + currentRoom
+    OUTPUT "Look around and see what you can find."
+END IF
 # TODO 5: Describe what happens when the movement command is invalid.
 # Include the output the player should receive.
-
+IF movementValid == FALSE THEN
+    OUTPUT "You cannot move in that direction."
+    OUTPUT "Please choose another direction."
+    
+END IF
 # TODO 6: Show how movement fits into repeated gameplay.
 # The final game continues accepting commands until a required ending occurs.
+WHILE gameOver == FALSE
+    REPEAT movement process from TODO 2 through TODO 5
+END WHILE
